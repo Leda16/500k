@@ -3,9 +3,10 @@
 session_start();
 
 include '../server-side/conn.php';
+require_once 'handle.php';
+
 
 $mensagemErro = '';
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
@@ -27,18 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mensagemErro = 'Nome de usuário ja existe...';
         }
     } else {
-        $mensagemErro = 'A senha deve conter 6 caracteres e um caractere especial...';
-        echo '<button type="button" class="btn btn-danger mb-2  me-2" id="toastr-danger-top-left"></button>';
+        toastr()->addSuccess('Your account has been restored.');
+
+
 
     }
 }
 
-// <div class="">
-// <span><i class="mdi mdi-help"></i></span>
-// <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
-// </button>
-// <strong>Error!</strong> Message Sending failed.
-// </div>
 
 
 
@@ -67,6 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- toastr  -->
     <link rel="stylesheet" href="vendor/toastr/css/toastr.min.css">
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
 
 </head>
