@@ -28,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         $mensagemErro = 'A senha deve conter 6 caracteres e um caractere especial...';
+        echo '<button type="button" class="btn btn-danger mb-2  me-2" id="toastr-danger-top-left"></button>';
+
     }
 }
 
@@ -43,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -142,7 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p><?php echo $mensagemErro; ?></p>
                 <?php endif; ?>
             </div>
-            <button type="button" class="btn btn-danger mb-2  me-2" id="toastr-danger-top-right">Error</button>
             <input type="submit" value="Registrar" class="btn">
             <p>Você ja possui uma conta?</p>
             <a href="login.html" class="btn link">Entrar</a>
@@ -213,8 +214,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- custom js file link  -->
     <script src="js/script.js"></script>
-    <script src="vendor/toastr/js/toastr.min.js"></script>
+    <script src="vendor/global/global.min.js"></script>
     <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Toastr -->
+    <script src="vendor/toastr/js/toastr.min.js"></script>
+    <!-- All init script -->
+    <script src="js/plugins-init/toastr-init.js"></script>
+
+
 
 </body>
 
