@@ -7,76 +7,28 @@ include '../server-side/conn.php';
 $mensagemErro = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
     $email = $_POST['email'];
-    $senha = $_POST['senha'];
-    $repass = $_POST['repass'];
-    $codigoIndicacao = $_POST['codigoIndicacao'] ?? null;
-
-    if ($senha == $repass) {
-        if (strlen($senha) > 6 && preg_match('/[^a-zA-Z\d]/', $senha)) {
-            $stmt = $conn->prepare("SELECT COUNT(*) FROM bancousuarios WHERE username = ?");
-            $stmt->execute([$username]);
-            $userExists = $stmt->fetchColumn() > 0;
-
-            $stmt = $conn->prepare("SELECT COUNT(*) FROM bancousuarios WHERE email = ?");
-            $stmt->execute([$email]);
-            $emailExists = $stmt->fetchColumn() > 0;
-
-            if (!$userExists && !$emailExists) {
-                function gerarCodigoUnico($conn) {
-                    $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$&*-+?';
-                    do {
-                        $codigo = '';
-                        for ($i = 0; $i < 8; $i++) {
-                            $codigo .= $caracteres[rand(0, strlen($caracteres) - 1)];
-                        }
-                        $stmt = $conn->prepare("SELECT COUNT(*) FROM bancousuarios WHERE codigo = ?");
-                        $stmt->execute([$codigo]);
-                        $codigoExists = $stmt->fetchColumn() > 0;
-                    } while ($codigoExists); 
-                    return $codigo;
-                }
-
-                $codigo = gerarCodigoUnico($conn);
-
-                $hashedPassword = password_hash($senha, PASSWORD_DEFAULT);
-                $stmt = $conn->prepare("INSERT INTO bancousuarios (username, email, password, codigo) VALUES (?, ?, ?, ?)");
-                $stmt->execute([$username, $email, $hashedPassword, $codigo]);
-
-                $usuarioId = $conn->lastInsertId();
-
-                if ($codigoIndicacao) {
-                    $stmt = $conn->prepare("SELECT id FROM bancousuarios WHERE codigo = ?");
-                    $stmt->execute([$codigoIndicacao]);
-                    $usuarioIndicador = $stmt->fetch(PDO::FETCH_ASSOC);
+    $password = $_POST['password'];
     
-                    if ($usuarioIndicador) {
-                        $stmt = $conn->prepare("INSERT INTO BancoDeIndicacao (usuario_id, usuario_indicado_id) VALUES (?, ?)");
-                        $stmt->execute([$usuarioIndicador['id'], $usuarioId]);
-                    } else {
-                        $mensagemErro = 'Codigo inexistente!';
-                    }
-                }
+    $sql = "SELECT * FROM bancousuarios WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$email]);
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-                $mensagemErro = 'Usuário registrado com sucesso!';
-            } else {
-                if ($userExists) {
-                    $mensagemErro = 'Nome de usuário já existe...';
-                } else {
-                    $mensagemErro = 'E-mail já está sendo usado...';
-                }
-            }
+    if ($resultado) {
+        if (password_verify($password, $resultado['password'])) {
+            $_SESSION['client'] = true; 
+    
+            header("Location: /");
+            exit;
         } else {
-            $mensagemErro = 'A senha deve conter mais de 6 caracteres e incluir pelo menos um caractere especial...';
+            $mensagemErro = '❌ Senha incorreta.';
         }
     } else {
-        $mensagemErro = 'Senhas diferentes...';
+        $mensagemErro = '❌ Usuário não encontrado.';
     }
+
 }
-
-
 
 
 
@@ -90,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - Shopie</title>
+    <title>Login - Shopie</title>
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -137,11 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="/carrinho" class="fas fa-shopping-cart"></a>
             </div>
 
-
         </section>
 
     </header>
-
     <!-- header section ends -->
 
     <!-- side-bar section starts -->
@@ -153,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="user">
             <img src="images/user-img.png" alt="">
             <h3>shaikh anas</h3>
-            <a href="#">Sair</a>
+            <a href="#">log out</a>
         </div>
 
         <nav class="navbar">
@@ -161,42 +111,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="about.html"> <i class="fas fa-angle-right"></i> Sobre </a>
             <a href="products.html"> <i class="fas fa-angle-right"></i> Produtos </a>
             <a href="contact.html"> <i class="fas fa-angle-right"></i> Contato </a>
-            <a href="/login"> <i class="fas fa-angle-right"></i> Entrar </a>
-            <a href="/register"> <i class="fas fa-angle-right"></i> Registrar </a>
-            <a href="/carrinho"> <i class="fas fa-angle-right"></i> Carrinho </a>
+            <a href="/login"> <i class="fas fa-angle-right"></i> Login </a>
+            <a href="/register"> <i class="fas fa-angle-right"></i> Registro </a>
+            <a href="/carrinho"> <i class="fas fa-angle-right"></i> Carrinhos </a>
         </nav>
 
     </div> -->
 
     <!-- side-bar section ends -->
 
-    <!-- side-bar section ends -->
+    <!-- login form section starts  -->
 
-    <!-- register form section starts  -->
-
-    <section class="register">
+    <section class="login">
 
         <form action="index.php" method="POST">
-            <h3>Registre-se agora</h3>
-            <input type="text" name="username" placeholder="Insira seu nome" id="" class="box">
+            <h3>Entrar agora</h3>
             <input type="email" name="email" placeholder="Insira seu email" id="" class="box">
-            <input type="password" name="senha" placeholder="Insira sua senha" id="" class="box">
-            <input type="password" name="repass" placeholder="Reinsira sua senha" id="" class="box">
-            <input type="text" name="codigoIndicacao" placeholder="Código de Indicação (Opcional)" class="box">
+            <input type="password" name="password" placeholder="Insira sua senha" id="" class="box">
+            <input type="submit" value="Entrar agora" class="btn">
             <div class="alert alert-danger solid alert-end-icon alert-dismissible fade show">
                 <?php if ($mensagemErro): ?>
                 <p><?php echo $mensagemErro; ?></p>
                 <?php endif; ?>
             </div>
-            <input type="submit" value="Registrar" class="btn">
-            <p>Você já possui uma conta?</p>
-            <a href="/login" class="btn link">Entrar</a>
+            <p>Ainda não tem uma conta?</p>
+            <a href="/register" class="btn link">Registrar-se agora</a>
         </form>
 
     </section>
 
-    <!-- register form section ends  -->
-
+    <!-- login form section ends  -->
 
 
 
@@ -240,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <section class="credit">
 
-            <p> E-Commerce <span>SHOPIE</span> | direitos reservados. </p>
+            <p> E-Commerce <span>SHOPIE </span> | Direitos Reservados. </p>
 
             <img src="images/card_img.png" alt="">
 
@@ -258,14 +202,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- custom js file link  -->
     <script src="js/script.js"></script>
-    <script src="vendor/global/global.min.js"></script>
-    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <!-- Toastr -->
-    <script src="vendor/toastr/js/toastr.min.js"></script>
-    <!-- All init script -->
-    <script src="js/plugins-init/toastr-init.js"></script>
-
-
 
 </body>
 
