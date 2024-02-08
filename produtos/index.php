@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -78,42 +83,42 @@
     <!-- category section starts  -->
 
     <section class="category">
-      <h1 class="heading">shop by <span>category</span></h1>
+      <h1 class="heading">Compre por <span>categorias</span></h1>
 
       <div class="box-container">
-        <a href="#" class="box">
-          <img src="images/cat_img1.png" alt="" />
-          <h3>televisions</h3>
+        <a href="Ofertas" class="box">
+          <img src="images/promocao.png" alt="" />
+          <h3>Ofertas</h3>
         </a>
 
-        <a href="#" class="box">
-          <img src="images/cat_img2.png" alt="" />
-          <h3>smartphones</h3>
+        <a href="Eletronicos" class="box">
+          <img src="images/eletronicos.png" alt="" />
+          <h3>Eletronicos</h3>
         </a>
 
-        <a href="#" class="box">
-          <img src="images/cat_img3.png" alt="" />
-          <h3>headphones</h3>
+        <a href="cosmeticos" class="box">
+          <img src="images/cosmeticos.png" alt="" />
+          <h3>Cosmeticos</h3>
         </a>
 
-        <a href="#" class="box">
-          <img src="images/cat_img4.png" alt="" />
-          <h3>smartwatches</h3>
+        <a href="casa" class="box">
+          <img src="images/casa.png" alt="" />
+          <h3>Casa</h3>
         </a>
 
-        <a href="#" class="box">
-          <img src="images/cat_img5.png" alt="" />
-          <h3>games</h3>
+        <a href="crianca" class="box">
+          <img src="images/crianca.png" alt="" />
+          <h3>Crianças</h3>
         </a>
 
-        <a href="#" class="box">
-          <img src="images/cat_img6.png" alt="" />
-          <h3>camera</h3>
+        <a href="ferramentas" class="box">
+          <img src="images/ferramentas.png" alt="" />
+          <h3>Ferramentas</h3>
         </a>
 
-        <a href="#" class="box">
-          <img src="images/cat_img7.png" alt="" />
-          <h3>speakers</h3>
+        <a href="animais" class="box">
+          <img src="images/animais.png" alt="" />
+          <h3>Animais</h3>
         </a>
       </div>
     </section>
