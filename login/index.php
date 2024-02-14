@@ -9,29 +9,25 @@ $mensagemErro = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    
-    $sql = "SELECT * FROM bancousuarios WHERE email = ?";
+
+    $sql = 'SELECT * FROM bancousuarios WHERE email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->execute([$email]);
     $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($resultado) {
         if (password_verify($password, $resultado['password'])) {
-            $_SESSION['client'] = true; 
-    
-            header("Location: /");
-            exit;
+            $_SESSION['client'] = true;
+
+            header('Location: /');
+            exit();
         } else {
             $mensagemErro = '❌ Senha incorreta.';
         }
     } else {
         $mensagemErro = '❌ Usuário não encontrado.';
     }
-
 }
-
-
-
 
 ?>
 
@@ -51,13 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
     <!-- cusom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- bootstrap  -->
-    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 
     <!-- toastr  -->
-    <link rel="stylesheet" href="vendor/toastr/css/toastr.min.css">
+    <link rel="stylesheet" href="/assets/vendor/toastr/css/toastr.min.css">
 
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
@@ -186,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <p> E-Commerce <span>SHOPIE </span> | Direitos Reservados. </p>
 
-            <img src="images/card_img.png" alt="">
+            <img src="/assets/images/card_img.png" alt="">
 
         </section>
 
@@ -201,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
     <!-- custom js file link  -->
-    <script src="js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
 
 </body>
 

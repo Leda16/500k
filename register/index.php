@@ -15,50 +15,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($senha == $repass) {
         if (strlen($senha) > 6 && preg_match('/[^a-zA-Z\d]/', $senha)) {
-            $stmt = $conn->prepare("SELECT COUNT(*) FROM bancousuarios WHERE username = ?");
+            $stmt = $conn->prepare('SELECT COUNT(*) FROM bancousuarios WHERE username = ?');
             $stmt->execute([$username]);
             $userExists = $stmt->fetchColumn() > 0;
 
-            $stmt = $conn->prepare("SELECT COUNT(*) FROM bancousuarios WHERE email = ?");
+            $stmt = $conn->prepare('SELECT COUNT(*) FROM bancousuarios WHERE email = ?');
             $stmt->execute([$email]);
             $emailExists = $stmt->fetchColumn() > 0;
 
             if (!$userExists && !$emailExists) {
-                function gerarCodigoUnico($conn) {
+                function gerarCodigoUnico($conn)
+                {
                     $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$&*-+?';
                     do {
                         $codigo = '';
                         for ($i = 0; $i < 8; $i++) {
                             $codigo .= $caracteres[rand(0, strlen($caracteres) - 1)];
                         }
-                        $stmt = $conn->prepare("SELECT COUNT(*) FROM bancousuarios WHERE codigo = ?");
+                        $stmt = $conn->prepare('SELECT COUNT(*) FROM bancousuarios WHERE codigo = ?');
                         $stmt->execute([$codigo]);
                         $codigoExists = $stmt->fetchColumn() > 0;
-                    } while ($codigoExists); 
+                    } while ($codigoExists);
                     return $codigo;
                 }
 
                 $codigo = gerarCodigoUnico($conn);
 
                 $hashedPassword = password_hash($senha, PASSWORD_DEFAULT);
-                $stmt = $conn->prepare("INSERT INTO bancousuarios (username, email, password, codigo) VALUES (?, ?, ?, ?)");
+                $stmt = $conn->prepare('INSERT INTO bancousuarios (username, email, password, codigo) VALUES (?, ?, ?, ?)');
                 $stmt->execute([$username, $email, $hashedPassword, $codigo]);
 
                 $usuarioId = $conn->lastInsertId();
 
                 if ($codigoIndicacao) {
-                    $stmt = $conn->prepare("SELECT id FROM bancousuarios WHERE codigo = ?");
+                    $stmt = $conn->prepare('SELECT id FROM bancousuarios WHERE codigo = ?');
                     $stmt->execute([$codigoIndicacao]);
                     $usuarioIndicador = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
                     if ($usuarioIndicador) {
-                        $stmt = $conn->prepare("INSERT INTO BancoDeIndicacao (usuario_id, usuario_indicado_id) VALUES (?, ?)");
+                        $stmt = $conn->prepare('INSERT INTO BancoDeIndicacao (usuario_id, usuario_indicado_id) VALUES (?, ?)');
                         $stmt->execute([$usuarioIndicador['id'], $usuarioId]);
                     } else {
                         $mensagemErro = 'Codigo inexistente!';
                     }
                 }
-
 
                 $mensagemErro = 'Usuário registrado com sucesso!';
             } else {
@@ -75,11 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensagemErro = 'Senhas diferentes...';
     }
 }
-
-
-
-
-
 
 ?>
 
@@ -99,13 +94,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
     <!-- cusom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- bootstrap  -->
-    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 
     <!-- toastr  -->
-    <link rel="stylesheet" href="vendor/toastr/css/toastr.min.css">
+    <link rel="stylesheet" href="/assets/vendor/toastr/css/toastr.min.css">
 
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
@@ -242,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <p> E-Commerce <span>SHOPIE</span> | direitos reservados. </p>
 
-            <img src="images/card_img.png" alt="">
+            <img src="/assets/images/card_img.png" alt="">
 
         </section>
 
@@ -257,13 +252,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
     <!-- custom js file link  -->
-    <script src="js/script.js"></script>
-    <script src="vendor/global/global.min.js"></script>
-    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="/assets/js/script.js"></script>
+    <script src="/assets/vendor/global/global.min.js"></script>
+    <script src="/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <!-- Toastr -->
-    <script src="vendor/toastr/js/toastr.min.js"></script>
+    <script src="/assets/vendor/toastr/js/toastr.min.js"></script>
     <!-- All init script -->
-    <script src="js/plugins-init/toastr-init.js"></script>
+    <script src="/assets/js/plugins-init/toastr-init.js"></script>
 
 
 

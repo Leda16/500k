@@ -12,11 +12,12 @@ try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo "Erro na conexão: " . $e->getMessage();
-    exit;
+    echo 'Erro na conexão: ' . $e->getMessage();
+    exit();
 }
 
-function verificaTrava($conn) {
+function verificaTrava($conn)
+{
     try {
         $sql = "SELECT COUNT(*) FROM config WHERE trava = 'ativada'";
         $stmt = $conn->prepare($sql);

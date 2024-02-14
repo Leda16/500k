@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
     <!-- cusom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
 </head>
 <body>
@@ -52,7 +52,7 @@
     <div id="close-side-bar" class="fas fa-times"></div>
 
     <div class="user">
-        <img src="images/user-img.png" alt="">
+        <img src="/assets/images/user-img.png" alt="">
         <h3>shaikh anas</h3>
         <a href="#">log out</a>
     </div>
@@ -81,7 +81,7 @@
 
         <div class="box">
             <i class="fas fa-times"></i>
-            <img src="images/product-1.jpg" alt="">
+            <img src="/assets/images/product-1.jpg" alt="">
             <div class="content">
                 <h3>smartphone</h3>
                 <form action="">
@@ -94,7 +94,7 @@
 
         <div class="box">
             <i class="fas fa-times"></i>
-            <img src="images/product-2.jpg" alt="">
+            <img src="/assets/images/product-2.jpg" alt="">
             <div class="content">
                 <h3>camera</h3>
                 <form action="">
@@ -107,7 +107,7 @@
 
         <div class="box">
             <i class="fas fa-times"></i>
-            <img src="images/product-3.jpg" alt="">
+            <img src="/assets/images/product-3.jpg" alt="">
             <div class="content">
                 <h3>television</h3>
                 <form action="">
@@ -120,7 +120,7 @@
 
         <div class="box">
             <i class="fas fa-times"></i>
-            <img src="images/product-4.jpg" alt="">
+            <img src="/assets/images/product-4.jpg" alt="">
             <div class="content">
                 <h3>speaker</h3>
                 <form action="">
@@ -133,7 +133,7 @@
 
         <div class="box">
             <i class="fas fa-times"></i>
-            <img src="images/product-6.jpg" alt="">
+            <img src="/assets/images/product-6.jpg" alt="">
             <div class="content">
                 <h3>smartwatch</h3>
                 <form action="">
@@ -146,7 +146,7 @@
 
         <div class="box">
             <i class="fas fa-times"></i>
-            <img src="images/product-7.jpg" alt="">
+            <img src="/assets/images/product-7.jpg" alt="">
             <div class="content">
                 <h3>headphone</h3>
                 <form action="">
@@ -216,7 +216,7 @@
     
         <p> created by <span>mr. web designer</span> | all rights reserved! </p>
     
-        <img src="images/card_img.png" alt="">
+        <img src="/assets/images/card_img.png" alt="">
     
     </section>
 
@@ -231,7 +231,7 @@
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
 <!-- custom js file link  -->
-<script src="js/script.js"></script>
+<script src="/assets/js/script.js"></script>
 
 </body>
 </html>

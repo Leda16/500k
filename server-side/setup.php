@@ -1,17 +1,16 @@
 <?php
 
-include 'conn.php'; 
-
+include 'conn.php';
 
 if (verificaTrava($conn)) {
-    header("Location: login.php");
-    exit;
+    header('Location: login.php');
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     file_put_contents('dbconfig.json', json_encode($_POST));
-    header('Location: create.php'); 
-    exit;
+    header('Location: create.php');
+    exit();
 }
 
 ?>
@@ -46,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <form action="setup.php" method="post">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Host do Banco de Dados</strong></label>
-                                            <input type="text" class="form-control" name="host" placeholder="localhost">
+                                            <input type="text" class="form-control" name="host"
+                                                placeholder="localhost">
                                         </div>
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Nome do Banco de Dados</strong></label>

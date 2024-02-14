@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
     <!-- cusom css file link  -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
@@ -54,7 +54,7 @@
         <div id="close-side-bar" class="fas fa-times"></div>
 
         <div class="user">
-            <img src="images/user-img.png" alt="">
+            <img src="assets/images/user-img.png" alt="">
             <h3>shaikh anas</h3>
             <a href="#">log out</a>
         </div>
@@ -78,7 +78,7 @@
     <section class="about">
 
         <div class="image">
-            <img src="images/about-img.png" alt="">
+            <img src="assets/images/about-img.png" alt="">
         </div>
 
         <div class="content">
@@ -183,7 +183,7 @@
             <div class="swiper-wrapper">
 
                 <div class="swiper-slide slide">
-                    <img src="images/pic-1.png" alt="">
+                    <img src="assets/images/pic-1.png" alt="">
                     <h3>john deo</h3>
                     <span>designer</span>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt explicabo laborum eos
@@ -191,7 +191,7 @@
                 </div>
 
                 <div class="swiper-slide slide">
-                    <img src="images/pic-2.png" alt="">
+                    <img src="assets/images/pic-2.png" alt="">
                     <h3>john deo</h3>
                     <span>designer</span>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, culpa non eaque illo laudantium
@@ -200,7 +200,7 @@
                 </div>
 
                 <div class="swiper-slide slide">
-                    <img src="images/pic-3.png" alt="">
+                    <img src="assets/images/pic-3.png" alt="">
                     <h3>john deo</h3>
                     <span>designer</span>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, culpa. Ducimus quos fuga
@@ -208,7 +208,7 @@
                 </div>
 
                 <div class="swiper-slide slide">
-                    <img src="images/pic-4.png" alt="">
+                    <img src="assets/images/pic-4.png" alt="">
                     <h3>john deo</h3>
                     <span>designer</span>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit explicabo placeat laborum pariatur
@@ -217,7 +217,7 @@
                 </div>
 
                 <div class="swiper-slide slide">
-                    <img src="images/pic-5.png" alt="">
+                    <img src="assets/images/pic-5.png" alt="">
                     <h3>john deo</h3>
                     <span>designer</span>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt explicabo laborum eos
@@ -225,7 +225,7 @@
                 </div>
 
                 <div class="swiper-slide slide">
-                    <img src="images/pic-6.png" alt="">
+                    <img src="assets/images/pic-6.png" alt="">
                     <h3>john deo</h3>
                     <span>designer</span>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus earum quas quo natus quis,
@@ -284,7 +284,7 @@
 
             <p> created by <span>mr. web designer</span> | all rights reserved! </p>
 
-            <img src="images/card_img.png" alt="">
+            <img src="assets/images/card_img.png" alt="">
 
         </section>
 
@@ -299,7 +299,7 @@
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
     <!-- custom js file link  -->
-    <script src="js/script.js"></script>
+    <script src="assets/js/script.js"></script>
 
 </body>
 

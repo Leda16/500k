@@ -4,21 +4,21 @@ include 'conn.php';
 
 $mensagemErro = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha'];
 
-    $sql = "SELECT * FROM bancoadmin WHERE username = ?";
+    $sql = 'SELECT * FROM bancoadmin WHERE username = ?';
     $stmt = $conn->prepare($sql);
     $stmt->execute([$usuario]);
     $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($resultado) {
         if (password_verify($senha, $resultado['password'])) {
-            $_SESSION['logintrue'] = true; 
-    
-            header("Location: burp.php");
-            exit;
+            $_SESSION['logintrue'] = true;
+
+            header('Location: burp.php');
+            exit();
         } else {
             $mensagemErro = '❌ Senha incorreta.';
         }

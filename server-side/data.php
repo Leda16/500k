@@ -1,9 +1,9 @@
 <?php
-include 'conn.php'; 
+include 'conn.php';
 
 if (verificaTrava($conn)) {
-    header("Location: login.php");
-    exit;
+    header('Location: login.php');
+    exit();
 }
 
 $sql = "CREATE TABLE IF NOT EXISTS datas (
@@ -124,22 +124,19 @@ $sqlIndicacao = "CREATE TABLE IF NOT EXISTS BancoDeIndicacao (
 )";
 $conn->exec($sqlIndicacao);
 
-
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario = $_POST['usuario'];
     $senha = $_POST['senha'];
 
     $senhaCriptografada = password_hash($senha, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO bancoadmin (username, password) VALUES (?, ?)";
+    $sql = 'INSERT INTO bancoadmin (username, password) VALUES (?, ?)';
     $stmt = $conn->prepare($sql);
-    
+
     $stmt->execute([$usuario, $senhaCriptografada]);
-    
-    header("Location: login.php");
-    exit;
+
+    header('Location: login.php');
+    exit();
 }
 ?>
 <!DOCTYPE html>

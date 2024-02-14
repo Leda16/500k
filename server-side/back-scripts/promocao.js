@@ -1,7 +1,6 @@
 $(document).ready(function () {
   // Busca de Produtos
   $(document).ready(function () {
-    // Função para executar a busca
     function realizarBusca() {
       var searchTerm = $("#searchTerm").val();
       $.ajax({
@@ -10,21 +9,17 @@ $(document).ready(function () {
         data: { searchTerm: searchTerm },
         success: function (response) {
           $(".list-group").html(response);
-          // Reaplique os manipuladores de eventos para os novos elementos, se necessário
         },
       });
     }
 
-    // Disparar busca ao clicar no botão "Buscar"
     $("#searchBtn").click(function () {
       realizarBusca();
     });
 
-    // Disparar busca ao pressionar "Enter" no campo de busca
     $("#searchTerm").keypress(function (e) {
       if (e.which == 13) {
-        // Código ASCII para Enter é 13
-        e.preventDefault(); // Impede o comportamento padrão do formulário
+        e.preventDefault();
         realizarBusca();
       }
     });

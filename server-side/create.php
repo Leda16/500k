@@ -3,8 +3,8 @@
 include 'conn.php';
 
 if (verificaTrava($conn)) {
-    header("Location: login.php");
-    exit;
+    header('Location: login.php');
+    exit();
 }
 ?>
 
@@ -38,11 +38,13 @@ if (verificaTrava($conn)) {
                                     <form action="data.php" method="post">
                                         <div class="form-group">
                                             <label class="mb-1"><strong>User</strong></label>
-                                            <input type="text" class="form-control" name="usuario" placeholder="user">
+                                            <input type="text" class="form-control" name="usuario"
+                                                placeholder="user">
                                         </div>
                                         <div class="form-group">
                                             <label class="mb-1"><strong>Senha</strong></label>
-                                            <input type="text" class="form-control" name="senha" placeholder="senha">
+                                            <input type="text" class="form-control" name="senha"
+                                                placeholder="senha">
                                         </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary btn-block">Criar</button>
