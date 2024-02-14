@@ -1,10 +1,17 @@
+<?php
+
+session_start();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>home</title>
+    <title>Zenite: Inicio</title>
 
     <!-- font awesome cdn link  -->
     <link
@@ -27,11 +34,11 @@
     <header class="header">
       <section class="flex">
         <a href="home.html" class="logo">
-          <i class="fas fa-store"></i> shopie
+          <i class="fas fa-store"></i> Zenite
         </a>
 
         <form action="" class="search-form">
-          <input type="search" id="search-box" placeholder="search here..." />
+          <input type="search" id="search-box" placeholder="Procure aqui..." />
           <label for="search-box" class="fas fa-search"></label>
         </form>
 
@@ -161,113 +168,34 @@
       <h1 class="heading">Novos <span>produtos</span></h1>
 
       <div class="box-container">
-        <div class="box">
-          <div class="image">
-            <img src="images/arrival-1.jpg" class="main-img" alt="" />
-            <img src="images/arrival-1-hover.jpg" class="hover-img" alt="" />
-          </div>
-          <div class="content">
-            <h3>Televisao HD</h3>
-            <div class="price">$249.99 <span>$399.99</span></div>
-            <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-        </div>
+      <?php
 
-        <div class="box">
-          <div class="image">
-            <img src="images/arrival-2.jpg" class="main-img" alt="" />
-            <img src="images/arrival-2-hover.jpg" class="hover-img" alt="" />
-          </div>
-          <div class="content">
-            <h3>lenovo laptop</h3>
-            <div class="price">$249.99 <span>$399.99</span></div>
-            <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-        </div>
+include 'server-side/conn.php';
 
-        <div class="box">
-          <div class="image">
-            <img src="images/arrival-3.jpg" class="main-img" alt="" />
-            <img src="images/arrival-3-hover.jpg" class="hover-img" alt="" />
-          </div>
-          <div class="content">
-            <h3>Celular</h3>
-            <div class="price">$249.99 <span>$399.99</span></div>
-            <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-        </div>
+try {
+    $sql = "SELECT nome, descricao, preco, imagem_url, imagem_url_hover FROM bancoprodutos";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 
-        <div class="box">
-          <div class="image">
-            <img src="images/arrival-4.jpg" class="main-img" alt="" />
-            <img src="images/arrival-4-hover.jpg" class="hover-img" alt="" />
-          </div>
-          <div class="content">
-            <h3>Impressora</h3>
-            <div class="price">$249.99 <span>$399.99</span></div>
-            <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-        </div>
+    $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro ao buscar produtos: " . $e->getMessage();
+    $produtos = []; // Garante que produtos é um array, mesmo em caso de erro
+}
 
-        <div class="box">
-          <div class="image">
-            <img src="images/arrival-5.jpg" class="main-img" alt="" />
-            <img src="images/arrival-5-hover.jpg" class="hover-img" alt="" />
-          </div>
-          <div class="content">
-            <h3>Fone de ouvido</h3>
-            <div class="price">$249.99 <span>$399.99</span></div>
-            <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-        </div>
-
-        <div class="box">
-          <div class="image">
-            <img src="images/arrival-6.jpg" class="main-img" alt="" />
-            <img src="images/arrival-6-hover.jpg" class="hover-img" alt="" />
-          </div>
-          <div class="content">
-            <h3>Auto Falante</h3>
-            <div class="price">$249.99 <span>$399.99</span></div>
-            <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-        </div>
+foreach ($produtos as $produto) {
+    echo '<div class="box">';
+    echo '  <div class="image">';
+    echo '    <img src="' . htmlspecialchars($produto['imagem_url']) . '" class="main-img" alt="" />';
+    echo '    <img src="' . htmlspecialchars($produto['imagem_url_hover']) . '" class="hover-img" alt="" />';
+    echo '  </div>';
+    echo '  <div class="content">';
+    echo '    <h3>' . htmlspecialchars($produto['nome']) . '</h3>';
+    echo '    <div class="price">$' . htmlspecialchars($produto['preco']) . '</div>';
+    echo '  </div>';
+    echo '</div>';
+}
+?>
       </div>
     </section>
 
@@ -300,7 +228,7 @@
       </section>
 
       <section class="credit">
-        <p>created by <span>mr. web designer</span> | all rights reserved!</p>
+        <p>E-Commerce <span>Zenite</span> | Direitos Reservados.</p>
 
         <img src="images/card_img.png" alt="" />
       </section>

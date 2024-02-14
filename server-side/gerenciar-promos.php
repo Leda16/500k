@@ -1,145 +1,31 @@
 <?php
-session_start(); 
-include 'conn.php';
 
-if (strpos($_SERVER['HTTP_USER_AGENT'], 'google') !== false) {
-	header('HTTP/1.0 404 Not Found');
-	exit();
-  }
-  if (strpos(gethostbyaddr(getenv("REMOTE_ADDR")), 'google') !== false) {
-	header('HTTP/1.0 404 Not Found');
-	exit();
-  }
-  //----------------------------------------------------------------------------------------------------------------//
-  function antibotter($user_agent)
-  {
-	$bots = array(
-	  'Googlebot',
-	  'Baiduspider',
-	  'ia_archiver',
-	  'R6_FeedFetcher',
-	  'NetcraftSurveyAgent',
-	  'Sogou web spider',
-	  'bingbot',
-	  'Yahoo! Slurp',
-	  'facebookexternalhit',
-	  'PrintfulBot',
-	  'msnbot',
-	  'Twitterbot',
-	  'UnwindFetchor',
-	  'urlresolver',
-	  'Butterfly',
-	  'TweetmemeBot',
-	  'PaperLiBot',
-	  'MJ12bot',
-	  'AhrefsBot',
-	  'Exabot',
-	  'Ezooms',
-	  'YandexBot',
-	  'SearchmetricsBot',
-	  'phishtank',
-	  'PhishTank',
-	  'picsearch',
-	  'TweetedTimes Bot',
-	  'QuerySeekerSpider',
-	  'ShowyouBot',
-	  'woriobot',
-	  'merlinkbot',
-	  'BazQuxBot',
-	  'Kraken',
-	  'SISTRIX Crawler',
-	  'R6_CommentReader',
-	  'magpie-crawler',
-	  'GrapeshotCrawler',
-	  'PercolateCrawler',
-	  'MaxPointCrawler',
-	  'R6_FeedFetcher',
-	  'NetSeer crawler',
-	  'grokkit-crawler',
-	  'SMXCrawler',
-	  'PulseCrawler',
-	  'Y!J-BRW',
-	  '80legs.com/webcrawler',
-	  'Mediapartners-Google',
-	  'Spinn3r',
-	  'InAGist',
-	  'Python-urllib',
-	  'NING',
-	  'TencentTraveler',
-	  'Feedfetcher-Google',
-	  'mon.itor.us',
-	  'spbot',
-	  'Feedly',
-	  'bot',
-	  'curl',
-	  "spider",
-	  "crawler"
-	);
-	foreach ($bots as $bot) {
-	  if (stripos($user_agent, $bot) !== false) return true;
-	}
-	return false;
-  }
-  
-  if (antibotter($_SERVER['HTTP_USER_AGENT'])) {
-	echo "404 NOT FOUND";
-	exit;
-  }
+session_start();
+include 'conn.php';
 
 if (!isset($_SESSION['logintrue']) || $_SESSION['logintrue'] !== true) {
     header("Location: login.php");
     exit;
 }
 
-$valorAcessos = 0; 
+$sql = "SELECT p.id, p.nome, p.oferta, p.vendidos, c.nome AS categoria_nome, c.id AS categoria_id
+        FROM BancoProdutos p
+        LEFT JOIN BancoCategoria c ON p.categoria_id = c.id";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Buscar todas as categorias para o dropdown
+$sqlCategorias = "SELECT id, nome FROM BancoCategoria";
+$stmtCategorias = $conn->prepare($sqlCategorias);
+$stmtCategorias->execute();
+$categorias = $stmtCategorias->fetchAll(PDO::FETCH_ASSOC);
 
-try {
-    $sql = "SELECT acessos FROM datas"; 
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($resultado) {
-        $valorAcessos = $resultado['acessos']; 
-    }
-} catch (PDOException $e) {
-    echo "Erro na consulta ao banco de dados: " . $e->getMessage();
-}
-
-if (isset($valorAcessos)) {
-    echo $valorAcessos;
-} else {
-    echo "Valor não encontrado.";
-}
-
-$valorPescados = 0; 
-
-try {
-    $sql = "SELECT pescados FROM datas"; 
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($resultado) {
-        $valorPescados = $resultado['pescados']; 
-    }
-} catch (PDOException $e) {
-    echo "Erro na consulta ao banco de dados: " . $e->getMessage();
-}
-
-if (isset($valorPescados)) {
-    echo $valorPescados;
-} else {
-    echo "Valor não encontrado.";
-}
-
-$diferenca = $valorAcessos - $valorPescados;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
 	<meta charset="utf-8">
@@ -150,6 +36,18 @@ $diferenca = $valorAcessos - $valorPescados;
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 	<link href="../../cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
+
+    <link href="vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
+	<link href="vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet">
+
+	<link href="vendor/jquery-steps/css/jquery.steps.css" rel="stylesheet">
+	<link href="vendor/jquery-smartwizard/dist/css/smart_wizard.min.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="back-scripts/promocao.js"></script>
 
 </head>
 <body>
@@ -198,7 +96,7 @@ $diferenca = $valorAcessos - $valorPescados;
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dashboard_bar">
-                                Analise da Tela
+                                Configurações da Tela
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
@@ -257,14 +155,14 @@ $diferenca = $valorAcessos - $valorPescados;
 
 						</ul>
                     </li>
-					<li>
+                    <li>
 						<a class="has-arrow ai-icon"  href="javascript:void(0);" aria-expanded="false">
 							<i class="flaticon-layout"></i>
 							<span class="nav-text">Gerenciamento</span>
 						</a>
                         <ul aria-expanded="false">
 							<li><a href="produtos-dash.php">Criar produtos</a></li>
-							<li><a href="gerenciar-promos.php">Gerenciar Promoçoes</a></li>
+							<li><a href="dash.php">Gerenciar Promoçoes</a></li>
 							<li><a href="config.php">Gerenciar Status</a></li>
 
 						</ul>
@@ -279,101 +177,100 @@ $diferenca = $valorAcessos - $valorPescados;
 			</div>
         </div>
 
+
+<!-- CODIGO PARA O MENU NESSE KARALHO NAO FODE
+PQP E SO PRA EU VER
+EU DEVO SER RETARDO NAO ESCREVO COISA NORMAL PARA ME INDENTIFICAR -->
+
+
         <div class="content-body">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-xl-6">
-						<div class="row">
-							<div class="col-xl-12">
-								<div class="card">
-									<div class="card-header border-0 pb-0">
-										<h4 class="fs-20 mb-0">Acessos</h4>
 
-									</div>
-									<div class="card-body pb-0">
-										<div class="d-flex justify-content-between align-items-center bgl-dark p-3 rounded selling">	
-											<span class="text-black fs-14">Acessos</span>
-											<span class="text-black fs-14"><?php echo $valorAcessos ?></span>
-										</div>
-										<div class="row">
-											<div class="col-md-6">
+        <div class="container mt-3">
+    <div class="input-group mb-3">
+        <input type="text" id="searchTerm" class="form-control" placeholder="Busque aqui pelo nome do produto">
+        <button class="btn btn-outline-secondary" type="button" id="searchBtn">Buscar</button>
+    </div>
+</div>
 
-												<div class="selling-pie-chart">
-													<canvas id="pie_chart"></canvas>
-												</div>	
-												<script type="text/javascript">
-													var valorAcessos = <?php echo json_encode($valorAcessos); ?>;
-													var valorPescados = <?php echo json_encode($valorPescados); ?>;
-												</script>									
-												<div class="chart-point mt-4 text-center">
-													<div class="fs-13 col px-0 text-black">
-														<span class="a mx-auto"></span>
-														Acessos Totais
-													</div>
-													<div class="fs-13 col px-0 text-black">
-														<span class="b mx-auto"></span>
-														Dados Recebidos
-													</div>
-													<div class="fs-13 col px-0 text-black">
-														<span class="c mx-auto"></span>
-														Bico Não Caiu
-													</div>
-												</div>
-											</div>
+        <div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mt-4">Lista de Produtos</h2>
+            <div class="list-group">
+                <?php foreach ($produtos as $produto): ?>
+                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold"><?= htmlspecialchars($produto['nome']) ?></div>
+                            Vendas: <?= $produto['vendidos'] > 0 ? "Foi vendido: " . $produto['vendidos'] . " item(s)" : "Sem vendas" ?>
+                        </div>
+                        <!-- Dropdown de Categorias -->
+                        <select class="form-select categoria-dropdown" style="width: auto;" data-produto-id="<?= $produto['id'] ?>" name="categoria">
+                            <?php foreach ($categorias as $categoria): ?>
+                                <option value="<?= $categoria['id'] ?>" <?= $categoria['id'] == $produto['categoria_id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($categoria['nome']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <!-- Campo de Edição da Oferta -->
+                        <select class="form-select oferta-dropdown" data-produto-id="<?= $produto['id'] ?>" name="oferta">
+                            <option value="Sem Oferta" <?= $produto['oferta'] == 'Sem Oferta' ? 'selected' : '' ?>>Sem Oferta</option>
+                            <option value="Promoção Relâmpago" <?= $produto['oferta'] == 'Promoção Relâmpago' ? 'selected' : '' ?>>Promoção Relâmpago</option>
+                            <option value="50% OFF" <?= $produto['oferta'] == '50% OFF' ? 'selected' : '' ?>>50% OFF</option>
+                        </select>                        <!-- Botão Deletar -->
+                        <button class="btn btn-danger ms-3 delete-btn" data-produto-id="<?= $produto['id'] ?>">Deletar</button>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>
 
-										</div>
+
+
+
+
+
+
+
+
+<!-- CODIGO PARA O MENU NESSE KARALHO NAO FODE
+PQP E SO PRA EU VER
+EU DEVO SER RETARDO NAO ESCREVO COISA NORMAL PARA ME INDENTIFICAR 
+FIMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM KLRLLLLLLLLLLLLLLLLLLLLLLLLLLLL-->
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-6">
 							</div>
 						</div>
 					</div>
-							<div class="col-xl-12">	
-								<div class="card">
-									<div class="card-body row d-sm-flex d-block align-items-center">
-										<div class="media col-sm-5 mb-2 mb-sm-0  align-items-center">
-											<svg class="me-4 min-w50" width="50" height="53" viewBox="0 0 50 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<rect width="7.11688" height="52.1905" rx="3" transform="matrix(-1 0 0 1 49.8203 0)" fill="var(--primary)"/>
-												<rect width="7.11688" height="37.9567" rx="3" transform="matrix(-1 0 0 1 35.5869 14.2338)" fill="var(--primary)"/>
-												<rect width="7.11688" height="16.6061" rx="3" transform="matrix(-1 0 0 1 21.3535 35.5844)" fill="var(--primary)"/>
-												<rect width="8.0293" height="32.1172" rx="3" transform="matrix(-1 0 0 1 8.03125 20.0732)" fill="var(--primary)"/>
-											</svg>
-											<div class="media-body">
-												<p class="mb-2 font-w300 text-black">Tela Fake | Caixa Tem</p>
-												<span class="fs-26 text-black">29/01/2024</span>
-											</div>
-										</div>
-										<div class="col-sm-7">
-											<p class="fs-12 mb-0">Tela Fake Caixa Tem, Encomendada. Personalizada by Leda. Sintonia Alta Cupula.
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="footer">
-
-						</div>
+				</div>
             </div>
-            <div class="copyright">
+        </div>
+
+        <div class="footer">
+		<div class="copyright">
                 <p>Copyright © Designed &amp; Developed by Leda 2024</p>
             </div>
         </div>
-        </div>
+
+
+
     </div>
 
     <script src="vendor/global/global.min.js"></script>
 	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-	<script src="vendor/chart.js/Chart.bundle.min.js"></script>
-	<script src="vendor/owl-carousel/owl.carousel.js"></script>
-	<script src="vendor/apexchart/apexchart.js"></script>
-	<script src="js/dashboard/page-analytics.js"></script>
+	<script src="vendor/jquery-smartwizard/dist/js/jquery.smartWizard.js"></script>
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Form validate init -->
+    <script src="js/plugins-init/jquery.validate-init.js"></script>
+    <!-- Form step init -->
+    <script src="js/plugins-init/jquery-steps-init.js"></script>
 	<script src="js/custom.min.js"></script>
 	<script src="js/deznav-init.js"></script>
+	<script src="js/demo.js"></script>
     <script src="js/styleSwitcher.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-		
+	
 </body>
 
 </html>

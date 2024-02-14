@@ -9,30 +9,26 @@ session_start();
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>products</title>
+    <title>Zenite: Produtos</title>
 
-    <!-- font awesome cdn link  -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
 
-    <!-- swiper css link  -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
     />
 
-    <!-- cusom css file link  -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <!-- header section starts  -->
 
     <header class="header">
       <section class="flex">
         <a href="home.html" class="logo">
-          <i class="fas fa-store"></i> shopie
+          <i class="fas fa-store"></i> Zenite
         </a>
 
         <form action="" class="search-form">
@@ -49,10 +45,6 @@ session_start();
         </div>
       </section>
     </header>
-
-    <!-- header section ends -->
-
-    <!-- side-bar section starts -->
 
     <div class="side-bar">
       <div id="close-side-bar" class="fas fa-times"></div>
@@ -78,57 +70,22 @@ session_start();
       </nav>
     </div>
 
-    <!-- side-bar section ends -->
 
-    <!-- category section starts  -->
 
     <section class="category">
       <h1 class="heading">Compre por <span>categorias</span></h1>
 
-      <div class="box-container">
-        <a href="Ofertas" class="box">
-          <img src="images/promocao.png" alt="" />
-          <h3>Ofertas</h3>
-        </a>
-
-        <a href="Eletronicos" class="box">
-          <img src="images/eletronicos.png" alt="" />
-          <h3>Eletronicos</h3>
-        </a>
-
-        <a href="cosmeticos" class="box">
-          <img src="images/cosmeticos.png" alt="" />
-          <h3>Cosmeticos</h3>
-        </a>
-
-        <a href="casa" class="box">
-          <img src="images/casa.png" alt="" />
-          <h3>Casa</h3>
-        </a>
-
-        <a href="crianca" class="box">
-          <img src="images/crianca.png" alt="" />
-          <h3>Crianças</h3>
-        </a>
-
-        <a href="ferramentas" class="box">
-          <img src="images/ferramentas.png" alt="" />
-          <h3>Ferramentas</h3>
-        </a>
-
-        <a href="animais" class="box">
-          <img src="images/animais.png" alt="" />
-          <h3>Animais</h3>
-        </a>
+      <div class="box-container" id="box-container">
+      <!-- As caixas serão geradas dinamicamente -->
       </div>
-    </section>
+  </section>
 
-    <!-- category section ends -->
 
-    <!-- products section starts  -->
+
+
 
     <section class="products">
-      <h1 class="heading">featured <span>products</span></h1>
+      <h1 class="heading">Produtos em <span>Promoção</span></h1>
 
       <div class="box-container">
         <div class="box">
@@ -406,18 +363,15 @@ session_start();
       </section>
 
       <section class="credit">
-        <p>created by <span>mr. web designer</span> | all rights reserved!</p>
-
+        <p> E-Commerce <span>Zenite</span> | Direitos Reservados.</p>
         <img src="images/card_img.png" alt="" />
       </section>
     </footer>
 
-    <!-- footer section ends -->
 
-    <!-- swiper js link      -->
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
-    <!-- custom js file link  -->
     <script src="js/script.js"></script>
+    <script src="js/anim.js"></script>
   </body>
 </html>

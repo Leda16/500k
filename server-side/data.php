@@ -36,6 +36,13 @@ $sqlUsuarios = "CREATE TABLE IF NOT EXISTS BancoUsuarios (
 )";
 $conn->exec($sqlUsuarios);
 
+// Categoria
+$sqlCategoria = "CREATE TABLE IF NOT EXISTS BancoCategoria (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL UNIQUE
+)";
+$conn->exec($sqlCategoria);
+
 // Tabela de Admin
 $sqlAdmin = "CREATE TABLE IF NOT EXISTS BancoAdmin (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,9 +59,13 @@ $sqlProdutos = "CREATE TABLE IF NOT EXISTS BancoProdutos (
     nome VARCHAR(255) NOT NULL,
     descricao TEXT,
     preco VARCHAR(255),
-    categoria VARCHAR(255),
+    categoria_id INT,
     imagem_url VARCHAR(255),
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    imagem_url_hover VARCHAR(255),
+    oferta VARCHAR(255),
+    vendidos VARCHAR(255),
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (categoria_id) REFERENCES BancoCategoria(id)
 )";
 $conn->exec($sqlProdutos);
 
@@ -112,6 +123,8 @@ $sqlIndicacao = "CREATE TABLE IF NOT EXISTS BancoDeIndicacao (
     FOREIGN KEY (usuario_indicado_id) REFERENCES BancoUsuarios(id)
 )";
 $conn->exec($sqlIndicacao);
+
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -144,6 +144,18 @@ $statusBackup = $resultado ? $resultado['formatoBackup'] : JSON;
 
 						</ul>
                     </li>
+					<li>
+						<a class="has-arrow ai-icon"  href="javascript:void(0);" aria-expanded="false">
+							<i class="flaticon-layout"></i>
+							<span class="nav-text">Gerenciamento</span>
+						</a>
+                        <ul aria-expanded="false">
+							<li><a href="produtos-dash.php">Criar produtos</a></li>
+							<li><a href="gerenciar-promos.php">Gerenciar Promoçoes</a></li>
+							<li><a href="config.php">Gerenciar Status</a></li>
+
+						</ul>
+                    </li>
 <br>
 <br>
 <br>
