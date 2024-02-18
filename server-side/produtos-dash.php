@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $imagemCategoria = $_POST['imagemCategoria'] ?? '';
 
         if (!empty($nomeCategoria) && !empty($imagemCategoria)) {
-            $sql = 'INSERT INTO BancoCategoria (nome, imagem_url) VALUES (?, ?)';
+            $sql = 'INSERT INTO BancoCategoria (nome, imagem) VALUES (?, ?)';
 
             try {
                 $stmt = $conn->prepare($sql);
@@ -261,7 +261,7 @@ EU DEVO SER RETARDO NAO ESCREVO COISA NORMAL PARA ME INDENTIFICAR -->
                     <div class="col-xl-12 col-xxl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Form step</h4>
+                                <h4 class="card-title">Adicionar produto</h4>
                             </div>
                             <div class="card-body">
                                 <form id="productForm" action="produtos-dash.php" method="POST">
@@ -347,7 +347,7 @@ EU DEVO SER RETARDO NAO ESCREVO COISA NORMAL PARA ME INDENTIFICAR -->
             </div>
             <div class="container-fluid">
 
-                // novo container
+                <!-- // novo container -->
                 <div class="row">
                     <div class="col-xl-12 col-xxl-12">
                         <div class="card mt-5">
@@ -376,7 +376,7 @@ EU DEVO SER RETARDO NAO ESCREVO COISA NORMAL PARA ME INDENTIFICAR -->
                     </div>
                 </div>
 
-                //container novo 2
+                <!-- //container novo 2 -->
                 <div class="row">
                     <div class="col-xl-12 col-xxl-12">
                         <div class="card mt-5">
@@ -406,7 +406,7 @@ EU DEVO SER RETARDO NAO ESCREVO COISA NORMAL PARA ME INDENTIFICAR -->
 
     </div>
     </div>
-
+    
 
 
 

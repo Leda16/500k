@@ -39,7 +39,8 @@ $conn->exec($sqlUsuarios);
 // Categoria
 $sqlCategoria = "CREATE TABLE IF NOT EXISTS BancoCategoria (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL UNIQUE
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    imagem VARCHAR(255) NOT NULL UNIQUE
 )";
 $conn->exec($sqlCategoria);
 
