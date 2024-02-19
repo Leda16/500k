@@ -205,13 +205,13 @@ session_start();
             </a>
 
             <div class="links">
-                <a href="/"> home </a>
-                <a href="/sobre"> about </a>
-                <a href="/produtos"> products </a>
+                <a href="/"> Inicio </a>
+                <a href="/termos"> Termos </a>
+                <a href="/produtos"> Produtos </a>
                 <a href="contact.html"> contact </a>
-                <a href="/login"> login </a>
-                <a href="/registre"> register </a>
-                <a href="/carrinho"> cart </a>
+                <a href="/login"> Entrar </a>
+                <a href="/registre"> Registrar-se </a>
+                <a href="/carrinho"> Carrinho </a>
             </div>
 
             <div class="share">
