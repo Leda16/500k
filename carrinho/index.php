@@ -193,15 +193,15 @@
 
         <a href="home.html" class="logo"> <i class="fas fa-store"></i> shopie </a>
     
-        <div class="links">
-            <a href="home.html"> home </a>
-            <a href="about.html"> about </a>
-            <a href="products.html"> products </a>
-            <a href="contact.html"> contact </a>
-            <a href="login.html"> login </a>
-            <a href="register.html"> register </a>
-            <a href="cart.html"> cart </a>
-        </div>
+            <div class="links">
+                <a href="/"> Inicio </a>
+                <a href="/termos"> Termos </a>
+                <a href="/produtos"> Produtos </a>
+                <a href="contact.html"> contact </a>
+                <a href="/login"> Entrar </a>
+                <a href="/registre"> Registrar-se </a>
+                <a href="/carrinho"> Carrinho </a>
+            </div>
     
         <div class="share">
             <a href="#" class="fab fa-facebook-f"></a>
