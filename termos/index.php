@@ -267,7 +267,7 @@
                 <a href="/produtos"> Produtos </a>
                 <a href="contact.html"> contact </a>
                 <a href="/login"> Entrar </a>
-                <a href="/registre"> Registrar-se </a>
+                <a href="/register"> Registrar-se </a>
                 <a href="/carrinho"> Carrinho </a>
             </div>
 
