@@ -161,11 +161,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="links">
                 <a href="/"> Inicio </a>
-                <a href="about.html"> Sobre </a>
-                <a href="products.html"> Produtos </a>
-                <a href="contact.html"> Contato </a>
+                <a href="/termos"> Termos </a>
+                <a href="/produtos"> Produtos </a>
+                <a href="contact.html"> contact </a>
                 <a href="/login"> Entrar </a>
-                <a href="/register"> Registrar </a>
+                <a href="/registre"> Registrar-se </a>
                 <a href="/carrinho"> Carrinho </a>
             </div>
 
