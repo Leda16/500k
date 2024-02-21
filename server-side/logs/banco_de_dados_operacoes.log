@@ -1,0 +1,2 @@
+2024-02-20 21:21:12 - INSERT INTO config (numeroItens, formatoBackup, trava) VALUES ('20','JSON','ativada')
+2024-02-20 21:21:12 - INSERT INTO bancoadmin (username, password) VALUES (?, ?)

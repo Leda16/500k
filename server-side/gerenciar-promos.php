@@ -185,7 +185,7 @@ $categorias = $stmtCategorias->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="produtos-dash.php">Criar produtos</a></li>
-                            <li><a href="dash.php">Gerenciar Promoçoes</a></li>
+                            <li><a href="gerenciar-promos.php">Gerenciar Promoçoes</a></li>
                             <li><a href="config.php">Gerenciar Status</a></li>
 
                         </ul>
